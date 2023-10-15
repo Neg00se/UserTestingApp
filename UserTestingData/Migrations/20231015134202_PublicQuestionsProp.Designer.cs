@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserTestingData.DataAccess;
 
@@ -11,9 +12,11 @@ using UserTestingData.DataAccess;
 namespace UserTestingData.Migrations
 {
     [DbContext(typeof(TestingAppDbContext))]
-    partial class TestingAppContextModelSnapshot : ModelSnapshot
+    [Migration("20231015134202_PublicQuestionsProp")]
+    partial class PublicQuestionsProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,11 +89,6 @@ namespace UserTestingData.Migrations
 
                     b.Property<float?>("Mark")
                         .HasColumnType("real");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
