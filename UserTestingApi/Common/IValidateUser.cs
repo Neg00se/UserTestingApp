@@ -1,9 +1,8 @@
 ﻿using UserTestingData.Models;
 
-namespace UserTestingApi.Common
+namespace UserTestingApi.Common;
+
+public interface IValidateUser
 {
-	public interface IValidateUser
-	{
-		bool IsUserValid(User user, string password);
-	}
+	bool IsUserValid(User user, string password);
 }

@@ -1,7 +1,6 @@
-﻿namespace UserTestingApi.Services
+﻿namespace UserTestingApi.Services;
+
+public interface IAuthService
 {
-	public interface IAuthService
-	{
-		Task<string> GenerateToken(string username, string password);
-	}
+	Task<string> GenerateToken(string username, string password);
 }

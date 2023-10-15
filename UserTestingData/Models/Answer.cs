@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserTestingData.Models
+namespace UserTestingData.Models;
+
+public class Answer
 {
-    public class Answer
-    {
-        public int Id { get; set; }
-        [MaxLength(500)]
-        public string AnswerText { get; set; }
-    }
+    public int Id { get; set; }
+    [MaxLength(500)]
+    public string AnswerText { get; set; }
 }
