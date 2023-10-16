@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UserTestingApi.Models;
 using UserTestingApi.Repositories;
 using UserTestingApi.Services;
 using UserTestingData.DataAccess;
@@ -21,15 +22,19 @@ public class UserController : ControllerBase
 	}
 
 
-	[HttpGet]
+	[HttpPost]
 	[AllowAnonymous]
 	[Route("Login")]
-	public async Task<IActionResult> Login(string username, string password)
+	public async Task<IActionResult> Login(UserCredentialsModel userCreds)
 	{
 		try
 		{
-			var token = await _authService.GenerateToken(username, password);
-			return Ok(token);
+			var token = await _authService.GenerateToken(userCreds.UserName, userCreds.Password);
+			var output = new
+			{
+				accessToken = token
+			};
+			return Ok(output);
 		}
 		catch (Exception ex)
 		{
