@@ -41,6 +41,15 @@ builder.Services.AddScoped<IValidateUser, ValidateUser>();
 builder.Services.AddScoped<IAuthService ,  AuthService>();
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 
+builder.Services.AddCors(policy =>
+{
+	policy.AddPolicy("CorsPolicy", opt =>
+	opt.WithOrigins("http://localhost:5173")
+	.AllowAnyMethod()
+	.AllowAnyHeader()
+	.AllowCredentials());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -54,6 +63,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors("CorsPolicy");
+
 
 app.MapControllers();
 
