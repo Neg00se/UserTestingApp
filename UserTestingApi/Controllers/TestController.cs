@@ -22,7 +22,8 @@ public class TestController : ControllerBase
 
 
 	[HttpPost]
-	public async Task<IActionResult> PassTest(int testId, List<IUserAnswersModel> userAnswers)
+	[Route("SendTest/{testId}")]
+	public async Task<IActionResult> PassTest(int testId, List<UserAnswersModel> userAnswers)
 	{
 		try
 		{
@@ -37,6 +38,7 @@ public class TestController : ControllerBase
 	}
 
 	[HttpGet]
+	[Route("GetTests")]
 	public async Task<IActionResult> GetAllTests()
 	{
 		try

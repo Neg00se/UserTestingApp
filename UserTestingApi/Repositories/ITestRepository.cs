@@ -7,6 +7,6 @@ public interface ITestRepository
 {
 	Task<List<Test>> GetAllUserTests();
 
-	Task Update(int testId , List<IUserAnswersModel> userAnswers);
+	Task Update(int testId , List<UserAnswersModel> userAnswers);
 
 }

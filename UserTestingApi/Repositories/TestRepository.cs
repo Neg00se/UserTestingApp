@@ -30,21 +30,24 @@ public class TestRepository : ITestRepository
 		return tests;
 	}
 
-	public async Task Update(int testId, List<IUserAnswersModel> userAnswers)
+	public async Task Update(int testId, List<UserAnswersModel> userAnswers)
 	{
-		var test = _context.Tests.Find(testId);
-		test.Completed = true;
-		test.Mark = 0;
-
-		foreach (var question in test.Questions)
+		var test = _context.Tests.Include(q=>q.Questions).ThenInclude(a=>a.CorrectAnswer).FirstOrDefault(test=> test.Id==testId);
+		if (test.Completed == false)
 		{
-			var answer = userAnswers.FirstOrDefault(answer => answer.QuestionId == question.Id);
-			if (answer is not null && answer.UserAnswer == question.CorrectAnswer)
-			{
-				test.Mark++;
-			}
-		}
+			test.Completed = true;
+			test.Mark = 0;
 
-		await _context.SaveChangesAsync();
+			foreach (var question in test.Questions)
+			{
+				var answer = userAnswers.FirstOrDefault(answer => answer.QuestionId == question.Id);
+				if (answer is not null && answer.UserAnswer.Id == question.CorrectAnswer.Id)
+				{
+					test.Mark++;
+				}
+			}
+
+			await _context.SaveChangesAsync();
+		}
 	}
 }
